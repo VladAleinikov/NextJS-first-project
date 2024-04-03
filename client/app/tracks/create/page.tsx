@@ -1,7 +1,7 @@
 "use client";
 import FileUpload from "@/components/FileUpload";
 import StepWrapper from "@/components/StepWrapper";
-import { useLazyAddTrackQuery } from "@/lib/track/track.api";
+import { useAddTrackMutation } from "@/lib/track/track.api";
 import { useRouter } from "next/navigation";
 import React, { useRef, useState } from "react";
 
@@ -13,7 +13,7 @@ const Create = () => {
   const nameRef = useRef<HTMLInputElement>(null);
   const artistRef = useRef<HTMLInputElement>(null);
   const textRef = useRef<HTMLTextAreaElement>(null);
-  const [addTrack, {isLoading, isError}] = useLazyAddTrackQuery();
+  const [addTrack, {isLoading, isError}] = useAddTrackMutation();
   const next = () => {
     if (activeStep !== 2) {
       setActiveStep((prev) => prev + 1);
