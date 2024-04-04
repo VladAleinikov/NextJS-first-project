@@ -42,7 +42,7 @@ export const tracksApi = createApi({
 });
 
 export const {
-  useLazyFetchTracksQuery,
+  useFetchTracksQuery,
   useAddTrackMutation,
     useFetchTrackQuery,
   useAddCommentMutation,
