@@ -1,5 +1,5 @@
 export interface ITrack{
-      id: number,
+      _id: number,
       name: string,
       artist: string,
       text: string,
@@ -9,7 +9,7 @@ export interface ITrack{
       comments: IComment[]
 }
 export interface IComment{
-      id: number,
+      _id: number,
       username: string,
       text: string
 }

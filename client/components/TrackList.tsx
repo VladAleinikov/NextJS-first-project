@@ -8,7 +8,7 @@ const TrackList: React.FC<TrackListProps> = ({ tracks }) => {
   return (
     <div>
       {tracks.map((track) => (
-        <TrackItem key={track.id} track={track} />
+        <TrackItem key={track._id} track={track} />
       ))}
     </div>
   );

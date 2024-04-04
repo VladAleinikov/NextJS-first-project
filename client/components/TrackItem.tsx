@@ -19,7 +19,7 @@ const TrackItem: React.FC<TrackItemProps> = ({ track, active = false }) => {
   return (
     <div onClick={() => router.push("/tracks/" + track.id)}>
       <button onClick={play}>{!active ? "Продолжить" : "Стоп"}</button>
-      <img src={track.picture} alt="preview" />
+      <img src={"http://localhost:5000/" + track.picture} alt="preview" />
       <div>
         <div>{track.name}</div>
         <div>{track.artist}</div>
