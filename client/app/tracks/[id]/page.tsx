@@ -3,11 +3,8 @@ import {
   useAddCommentMutation,
   useFetchTrackQuery,
 } from "@/lib/track/track.api";
-import { ITrack } from "@/types/track";
-import axios from "axios";
-import { GetServerSideProps } from "next";
 import { useRouter } from "next/navigation";
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 
 const TrackPage = ({ params }: { params: { id: string } }) => {
   const router = useRouter();

@@ -6,10 +6,13 @@ export const tracksApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5000/" }),
   tagTypes: ["Track", "Tracks"],
   endpoints: (builder) => ({
-    fetchTracks: builder.query<ITrack[], void>({
-      query: () => ({
-        url: "tracks",
+    fetchTracks: builder.query<ITrack[], string | void >({
+      query: (query = "") => ({
+        url: "tracks/search",
         method: "get",
+        params: {
+          query,
+        },
       }),
       providesTags: ["Tracks"],
     }),
@@ -39,8 +42,8 @@ export const tracksApi = createApi({
 });
 
 export const {
-  useFetchTracksQuery,
+  useLazyFetchTracksQuery,
   useAddTrackMutation,
-  useFetchTrackQuery,
+    useFetchTrackQuery,
   useAddCommentMutation,
 } = tracksApi;
