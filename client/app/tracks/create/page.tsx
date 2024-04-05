@@ -10,20 +10,22 @@ const Create = () => {
   const [activeStep, setActiveStep] = useState<number>(0);
   const [picture, setPicture] = useState(null);
   const [audio, setAudio] = useState(null);
-  const nameRef = useRef<HTMLInputElement>(null);
-  const artistRef = useRef<HTMLInputElement>(null);
-  const textRef = useRef<HTMLTextAreaElement>(null);
+  const [name, setName] = useState<string>("");
+  const [artist, setArtist] = useState<string>("");
+  const [text, setText] = useState<string>("");
   const [addTrack, {isLoading, isError}] = useAddTrackMutation();
   const next = () => {
     if (activeStep !== 2) {
       setActiveStep((prev) => prev + 1);
-    } else if(picture && audio) {
+    } else if (picture && audio) {      
       const formData = new FormData();
-      formData.append("name", nameRef.current?.value || '');
-      formData.append("artist", artistRef.current?.value || '');
-      formData.append("text", textRef.current?.value || '');
+      formData.append("name", name || '');
+      formData.append("artist", artist || '');
+      formData.append("text", text || '');
       formData.append("picture", picture);
       formData.append("audio", audio);
+      console.log(formData);
+      
       addTrack(formData).then(res => router.push('/tracks'));
     }
   };
@@ -35,10 +37,10 @@ const Create = () => {
       <StepWrapper activeStep={activeStep}>asdasd</StepWrapper>
       {activeStep === 0 && (
         <div>
-          <input ref={nameRef} type="text" placeholder="Название трека" />
-          <input ref={artistRef} type="text" placeholder="Имя автора" />
+          <input value={name} onChange={(e) => setName(e.target.value)} type="text" placeholder="Название трека" />
+          <input value={artist} onChange={(e) => setArtist(e.target.value)} type="text" placeholder="Имя автора" />
           <textarea
-            ref={textRef}
+            value={text} onChange={(e) => setText(e.target.value)}
             cols={30}
             rows={10}
             placeholder="Слова к треку"

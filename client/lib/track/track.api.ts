@@ -21,10 +21,15 @@ export const tracksApi = createApi({
       providesTags: ["Track"],
     }),
     addTrack: builder.mutation<ITrack, FormData>({
-      query: () => ({
+      query: (formData) => ({
         url: "tracks",
         method: "post",
+        body: formData
       }),
+      invalidatesTags: ["Tracks"],
+    }),
+    deleteTrack: builder.mutation<ITrack[], string>({
+      query: (id) => ({ url: "tracks/" + id, method: "delete" }),
       invalidatesTags: ["Tracks"],
     }),
     addComment: builder.mutation<
@@ -44,6 +49,7 @@ export const tracksApi = createApi({
 export const {
   useFetchTracksQuery,
   useAddTrackMutation,
-    useFetchTrackQuery,
+  useFetchTrackQuery,
   useAddCommentMutation,
+  useDeleteTrackMutation,
 } = tracksApi;
