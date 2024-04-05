@@ -6,11 +6,11 @@ interface TrackListProps {
 }
 const TrackList: React.FC<TrackListProps> = ({ tracks }) => {
   return (
-    <div>
+    <ul role="list" className="divide-y divide-gray-100 min-w-[400px]">
       {tracks.map((track) => (
         <TrackItem key={track._id} track={track} />
       ))}
-    </div>
+    </ul>
   );
 };
 

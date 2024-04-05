@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useActions, useAppSelector } from "@/lib/hooks";
 import { useDeleteTrackMutation } from "@/lib/track/track.api";
 import { ITrack } from "@/types/track";
@@ -12,27 +12,84 @@ const TrackItem: React.FC<TrackItemProps> = ({ track, active = false }) => {
   const router = useRouter();
   const { playTrack, pauseTrack, setActiveTrack } = useActions();
   const [deleteTrack, {}] = useDeleteTrackMutation();
-  const {pause} = useAppSelector(state => state.player)
+  const { pause } = useAppSelector((state) => state.player);
   const play = (e) => {
     e.stopPropagation();
     setActiveTrack(track);
     playTrack();
-  }
+  };
   const deleteTrackHandler = (e) => {
     e.stopPropagation();
     deleteTrack(track._id);
-  }
+  };
   return (
-    <div onClick={() => router.push("/tracks/" + track._id)}>
-      <button onClick={play}>{!active ? "Продолжить" : "Стоп"}</button>
-      <img src={"http://localhost:5000/" + track.picture} alt="preview" />
-      <div>
-        <div>{track.name}</div>
-        <div>{track.artist}</div>
+    <li
+      className="flex justify-between gap-x-6 py-5 max-w-md"
+      onClick={() => router.push("/tracks/" + track._id)}
+    >
+      <div className="flex gap-x-4 w-full p-2 rounded-lg ease-in-out duration-300 hover:ring-slate-300 dark:bg-slate-800 dark:highlight-white/5 dark:hover:bg-slate-700">
+        <button onClick={play}>
+          {!active ? (
+            <svg
+              className="w-6 h-6 text-gray-800 dark:text-white dark:hover:text-sky-400 ease-in-out duration-300"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              {" "}
+              <polygon points="5 3 19 12 5 21 5 3" />
+            </svg>
+          ) : (
+            <svg
+              className="w-6 h-6 text-gray-800 dark:text-white dark:hover:text-sky-400 ease-in-out duration-300"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              {" "}
+              <rect x="6" y="4" width="4" height="16" />{" "}
+              <rect x="14" y="4" width="4" height="16" />
+            </svg>
+          )}
+        </button>
+        <img
+          className="h-12 w-12 flex-none rounded-full bg-gray-50"
+          src={"http://localhost:5000/" + track.picture}
+          alt="preview"
+        />
+        <div className="min-w-0 flex-auto">
+          <p className="text-sm font-semibold leading-6 dark:text-slate-200">
+            {track.name}
+          </p>
+          <p className="mt-1 truncate text-xs leading-5 text-gray-500">
+            {track.artist}
+          </p>
+        </div>
+        {active && <div>02:42 / 03:22</div>}
+        <button className="sm:items-end" onClick={deleteTrackHandler}>
+          <svg
+            className="w-8 h-8 text-gray-800 dark:text-white dark:hover:text-sky-400 ease-in-out duration-300"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            {" "}
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />{" "}
+            <line x1="9" y1="9" x2="15" y2="15" />{" "}
+            <line x1="15" y1="9" x2="9" y2="15" />
+          </svg>
+        </button>
       </div>
-      {active && <div>02:42 / 03:22</div>}
-      <button onClick={deleteTrackHandler}>Удалить</button>
-    </div>
+    </li>
   );
 };
 
