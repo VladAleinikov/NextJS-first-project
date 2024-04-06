@@ -8,6 +8,7 @@ import {
   UseInterceptors,
   UploadedFiles,
   Query,
+  Put,
 } from '@nestjs/common';
 import { TrackSerevice } from './track.service';
 import { CreateTrackDto } from './dto/create-track.dto';
@@ -54,7 +55,7 @@ export class TrackController {
     return this.trackService.addComment(dto);
   }
 
-  @Post('/listen/:id')
+  @Put('/listen/:id')
   listen(@Param('id') id: ObjectId) {
     return this.trackService.listen(id);
   }
