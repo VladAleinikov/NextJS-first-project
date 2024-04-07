@@ -3,12 +3,12 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const tracksApi = createApi({
   reducerPath: "tracksApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5000/" }),
+  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5000/tracks" }),
   tagTypes: ["Track", "Tracks"],
   endpoints: (builder) => ({
-    fetchTracks: builder.query<ITrack[], string | void>({
+    fetchTracks: builder.query<ITrack[], string>({
       query: (query = "") => ({
-        url: "tracks",
+        url: "/",
         method: "get",
         params: {
           searchQuery: query,
@@ -17,27 +17,27 @@ export const tracksApi = createApi({
       providesTags: ["Tracks"],
     }),
     fetchTrack: builder.query<ITrack, string>({
-      query: (id) => ({ url: "tracks/" + id, method: "get" }),
+      query: (id) => ({ url: "/" + id, method: "get" }),
       providesTags: ["Track"],
     }),
     addTrack: builder.mutation<ITrack, FormData>({
       query: (formData) => ({
-        url: "tracks",
+        url: "/",
         method: "post",
         body: formData
       }),
       invalidatesTags: ["Tracks"],
     }),
     deleteTrack: builder.mutation<ITrack[], string>({
-      query: (id) => ({ url: "tracks/" + id, method: "delete" }),
+      query: (id) => ({ url: "/" + id, method: "delete" }),
       invalidatesTags: ["Tracks"],
     }),
     addComment: builder.mutation<
       ITrack,
-      { comment: Omit<IComment, "id">; trackId: number }
+      { comment: Omit<IComment, "_id">; trackId: number }
     >({
       query: ({ comment, trackId }) => ({
-        url: "tracks/comment",
+        url: "/comment",
         method: "post",
         body: { ...comment, trackId },
         invalidatesTags: ["Track"],
@@ -48,6 +48,7 @@ export const tracksApi = createApi({
 
 export const {
   useFetchTracksQuery,
+  useLazyFetchTracksQuery,
   useAddTrackMutation,
   useFetchTrackQuery,
   useAddCommentMutation,

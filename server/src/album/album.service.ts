@@ -22,10 +22,11 @@ export class AlbumService {
             });
             return album;
       }
-      async search(searchQuery = '', count = 10, page = 0): Promise<Album[]> {
+      async search(searchQuery = '', count = 10, page = 0, albumIds: ObjectId[]): Promise<Album[]> {
             const albums = await this.albumModel
                   .find({
-                        name: { $regex: new RegExp(searchQuery, 'i') }
+                        name: { $regex: new RegExp(searchQuery, 'i') },
+                        id: { $regex: new RegExp(albumIds.join(','), ) },
                   })
                   .skip(page * count)
                   .limit(count);

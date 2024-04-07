@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
 import TrackList from "../../components/TrackList";
 import { useAppSelector } from "@/lib/hooks";
-import { useFetchTracksQuery } from "@/lib/track/track.api";
+import { useFetchTracksQuery } from "@/lib/tracks/tracks.api";
 import { useDebounce } from "@/hooks/debounce";
 
 const Tracks = () => {

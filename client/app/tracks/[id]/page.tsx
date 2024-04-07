@@ -2,10 +2,10 @@
 import {
   useAddCommentMutation,
   useFetchTrackQuery,
-} from "@/lib/track/track.api";
+} from "@/lib/tracks/tracks.api";
 import React, { useRef } from "react";
 
-const TrackPage = ({ params }: { params: { id: string } }) => {
+const Track = ({ params }: { params: { id: string } }) => {
   const { isLoading, isError, data: track } = useFetchTrackQuery(params.id);
   const [
     addComment,
@@ -74,4 +74,4 @@ const TrackPage = ({ params }: { params: { id: string } }) => {
   );
 };
 
-export default TrackPage;
+export default Track;

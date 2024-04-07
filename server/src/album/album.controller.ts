@@ -18,9 +18,11 @@ export class AlbumController {
             @Query('searchQuery') searchQuery: string,
             @Query('count') count: number,
             @Query('page') page: number,
+            @Query('albumIds') albumIds: ObjectId[]
       ) {
-            return this.AlbumService.search(searchQuery, count, page)
+            return this.AlbumService.search(searchQuery, count, page, albumIds)
       }
+
 
       @Post()
       @UseInterceptors(
@@ -33,8 +35,8 @@ export class AlbumController {
             return this.AlbumService.create(dto, picture[0])
       }
 
-      @Put('/addTrack/:id')
-      addTrack(@Param('id') id: ObjectId, @Param('trackId') trackId: ObjectId) {
+      @Put('/:id')
+      addTrack(@Param('id') id: ObjectId, @Body('trackId') trackId: ObjectId) {
             return this.AlbumService.addTrack(id, trackId);
       }
 
