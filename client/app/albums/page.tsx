@@ -1,13 +1,15 @@
+"use client"
+import AlbumList from '@/components/AlbumList';
 import { useDebounce } from '@/hooks/debounce';
 import { useFetchAlbumsQuery } from '@/lib/albums/albums.api'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 
 const Albums = () => {
   const router = useRouter();
   const [search, setSearch] = useState<string>("");
   const debounced = useDebounce(search);
-  const { isLoading, isError, data: albums } = useFetchAlbumsQuery(debounced);
+  const { isSuccess, isError, data: albums } = useFetchAlbumsQuery(debounced);
   
   
   return (
@@ -23,6 +25,7 @@ const Albums = () => {
           Добавить альбом
         </button>
       </div>
+      {isSuccess && <AlbumList albums={albums} />}
       </div>
   )
 }

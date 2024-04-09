@@ -13,6 +13,6 @@ export const makeStore = () => {
       album: albumReducer,
     },
     middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware().concat(tracksApi.middleware),
+      getDefaultMiddleware().concat(tracksApi.middleware, albumApi.middleware),
   });
 };

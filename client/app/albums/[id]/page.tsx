@@ -1,4 +1,4 @@
-
+"use client"
 import TrackItem from '@/components/TrackItem'
 import TrackList from '@/components/TrackList'
 import { useDebounce } from '@/hooks/debounce'
@@ -38,24 +38,38 @@ const Album = ({ params }: { params: { id: string } }) => {
           onChange={(e) => setSearch(e.target.value)}
         />
 
-        {dropdown && <ul className="llist-none absolute top-[42px] left-0 right-0 max-h-[200px] overflow-y-scroll shadow-md bg-white">
-          {isLoading && <p className="text-center">Loading...</p>}
-          {tracks?.map(tack =>
-            <li
-              key={tack.id}
-              onClick={() => addTrackToAlbum(tack._id)}
-              className="py-2 px-4 hover:bg-gray-500 hover:text-white transition-colors cursor-pointer"
-            >
-              <TrackItem track={tack} />
-            </li>
-          )}
-        </ul>}
+        {dropdown && (
+          <ul className="llist-none absolute top-[42px] left-0 right-0 max-h-[200px] overflow-y-scroll shadow-md bg-white">
+            {isLoading && <p className="text-center">Loading...</p>}
+            {tracks?.map((track) => (
+              <li
+                key={track.id}
+                onClick={() => addTrackToAlbum(track._id)}
+                className="py-2 px-4 hover:bg-gray-500 hover:text-white transition-colors cursor-pointer"
+              >
+                <div className="flex gap-x-4 w-full p-2 rounded-lg ease-in-out duration-300 hover:ring-slate-300 dark:bg-slate-800 dark:highlight-white/5 dark:hover:bg-slate-700">
+                  <img
+                    className="h-12 w-12 flex-none rounded-full bg-gray-50"
+                    src={"http://localhost:5000/" + track.picture}
+                    alt="preview"
+                  />
+                  <div className="min-w-0 flex-auto">
+                    <p className="text-sm font-semibold leading-6 dark:text-slate-200">
+                      {track.name}
+                    </p>
+                    <p className="mt-1 truncate text-xs leading-5 text-gray-500">
+                      {track.artist}
+                    </p>
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
-      {!isLoading && album ?
-        <TrackList tracks={album?.tracks} />
-        : "Загрузка"}
+      {!isLoading && album ? <TrackList tracks={album?.tracks} /> : "Загрузка"}
     </div>
-  )
+  );
 }
 
 export default Album

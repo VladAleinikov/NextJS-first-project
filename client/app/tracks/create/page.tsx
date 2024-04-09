@@ -19,14 +19,13 @@ const Create = () => {
       setActiveStep((prev) => prev + 1);
     } else if (picture && audio) {
       const formData = new FormData();
-      formData.append("name", name || "");
-      formData.append("artist", artist || "");
-      formData.append("text", text || "");
+      formData.append("name", name);
+      formData.append("artist", artist);
+      formData.append("text", text);
       formData.append("picture", picture);
       formData.append("audio", audio);
-      console.log(formData);
 
-      addTrack(formData).then((res) => router.push("/tracks"));
+      addTrack(formData).then(() => router.push("/tracks"));
     }
   };
   const back = () => {

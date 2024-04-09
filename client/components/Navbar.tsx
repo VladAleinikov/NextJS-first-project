@@ -7,6 +7,7 @@ const menuItems: IMenuItem[] = [
   { text: "Главная", href: "/" },
   { text: "Список треков", href: "/tracks" },
   { text: "Список альбомов", href: "/albums" },
+  { text: "Любимые альбомы", href: "/albums/favorites" },
 ];
 const Navbar = () => {
   const router = useRouter();

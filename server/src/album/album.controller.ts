@@ -18,7 +18,7 @@ export class AlbumController {
             @Query('searchQuery') searchQuery: string,
             @Query('count') count: number,
             @Query('page') page: number,
-            @Query('albumIds') albumIds: ObjectId[]
+            @Query('albumIds') albumIds: string[]
       ) {
             return this.AlbumService.search(searchQuery, count, page, albumIds)
       }
@@ -35,7 +35,7 @@ export class AlbumController {
             return this.AlbumService.create(dto, picture[0])
       }
 
-      @Put('/:id')
+      @Put(':id')
       addTrack(@Param('id') id: ObjectId, @Body('trackId') trackId: ObjectId) {
             return this.AlbumService.addTrack(id, trackId);
       }

@@ -25,7 +25,7 @@ const Track = ({ params }: { params: { id: string } }) => {
           username: nameRef.current?.value,
           text: textRef.current?.value,
         },
-        trackId: track.id,
+        trackId: track._id,
       });
     }
   };
@@ -60,7 +60,7 @@ const Track = ({ params }: { params: { id: string } }) => {
           </div>
           <div>
             {track.comments.map((comment) => (
-              <div key={comment.id}>
+              <div key={comment._id}>
                 <div>Автор - {comment.username}</div>
                 <div>Комментарий - {comment.text}</div>
               </div>

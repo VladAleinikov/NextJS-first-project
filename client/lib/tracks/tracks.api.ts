@@ -34,7 +34,7 @@ export const tracksApi = createApi({
     }),
     addComment: builder.mutation<
       ITrack,
-      { comment: Omit<IComment, "_id">; trackId: number }
+      { comment: Omit<IComment, "_id">; trackId: string }
     >({
       query: ({ comment, trackId }) => ({
         url: "/comment",
