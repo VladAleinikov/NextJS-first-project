@@ -3,12 +3,13 @@ import TrackItem from '@/components/TrackItem'
 import TrackList from '@/components/TrackList'
 import { useDebounce } from '@/hooks/debounce'
 import { useAddTrackMutation, useFetchAlbumQuery } from '@/lib/albums/albums.api'
+import { useAppSelector } from '@/lib/hooks'
 import { useFetchTracksQuery, useLazyFetchTracksQuery } from '@/lib/tracks/tracks.api'
 import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 
 const Album = ({ params }: { params: { id: string } }) => {
-  const router = useRouter()
+  const router = useRouter();
   const [search, setSearch] = useState<string>("");
   const [dropdown, setDropdown] = useState<boolean>(false)
   const debounced = useDebounce(search);
@@ -20,7 +21,7 @@ const Album = ({ params }: { params: { id: string } }) => {
   });
 
   const addTrackToAlbum = (trackId: string) => {
-    if (isSuccessAlbum) {
+    if (isSuccessAlbum && album.tracks.filter(track => track._id !== trackId).length) {
       addTrack({ id: album?._id, trackId: trackId });
     }
   }

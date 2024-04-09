@@ -1,7 +1,7 @@
 "use client";
 import FileUpload from "@/components/FileUpload";
 import StepWrapper from "@/components/StepWrapper";
-import { useAddTrackMutation } from "@/lib/track/track.api";
+import { useAddTrackMutation } from "@/lib/tracks/tracks.api";
 import { useRouter } from "next/navigation";
 import React, { useRef, useState } from "react";
 

@@ -58,8 +58,6 @@ export class AlbumService {
     return album.id;
   }
   async addTrack(id: ObjectId, trackId: ObjectId): Promise<Album> {
-    console.log(id + ' ' + trackId);
-
     const album = await this.albumModel.findById(id);
     const track = await this.trackModel.findById(trackId);
     album.tracks.push(track.id);
