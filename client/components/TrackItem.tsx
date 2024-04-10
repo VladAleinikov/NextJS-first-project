@@ -1,4 +1,5 @@
 "use client";
+import { useConvertToTime } from "@/hooks/convertToTime";
 import { useActions, useAppSelector } from "@/lib/hooks";
 import { useDeleteTrackMutation } from "@/lib/tracks/tracks.api";
 import { ITrack } from "@/types/track";
@@ -8,15 +9,21 @@ interface TrackItemProps {
   track: ITrack;
   active?: boolean;
 }
-const TrackItem: React.FC<TrackItemProps> = ({ track, active = false }) => {
+const TrackItem: React.FC<TrackItemProps> = ({ track }) => {
   const router = useRouter();
   const { playTrack, pauseTrack, setActiveTrack } = useActions();
   const [deleteTrack, {}] = useDeleteTrackMutation();
-  const { pause } = useAppSelector((state) => state.player);
+  const { pause, active, duration, currentTime } = useAppSelector(
+    (state) => state.player
+  );
   const play = (e) => {
     e.stopPropagation();
     setActiveTrack(track);
     playTrack();
+  };
+  const stop = (e) => {
+    e.stopPropagation();
+    pauseTrack();
   };
   const deleteTrackHandler = (e) => {
     e.stopPropagation();
@@ -28,8 +35,8 @@ const TrackItem: React.FC<TrackItemProps> = ({ track, active = false }) => {
       onClick={() => router.push("/tracks/" + track._id)}
     >
       <div className="flex gap-x-4 w-full p-2 rounded-lg ease-in-out duration-300 hover:ring-slate-300 dark:bg-slate-800 dark:highlight-white/5 dark:hover:bg-slate-700">
-        <button onClick={play}>
-          {!active ? (
+        {active?._id !== track._id || pause ? (
+          <button onClick={play}>
             <svg
               className="w-6 h-6 text-gray-800 dark:text-white dark:hover:text-sky-400 ease-in-out duration-300"
               viewBox="0 0 24 24"
@@ -42,7 +49,9 @@ const TrackItem: React.FC<TrackItemProps> = ({ track, active = false }) => {
               {" "}
               <polygon points="5 3 19 12 5 21 5 3" />
             </svg>
-          ) : (
+          </button>
+        ) : (
+          <button onClick={stop}>
             <svg
               className="w-6 h-6 text-gray-800 dark:text-white dark:hover:text-sky-400 ease-in-out duration-300"
               viewBox="0 0 24 24"
@@ -56,8 +65,8 @@ const TrackItem: React.FC<TrackItemProps> = ({ track, active = false }) => {
               <rect x="6" y="4" width="4" height="16" />{" "}
               <rect x="14" y="4" width="4" height="16" />
             </svg>
-          )}
-        </button>
+          </button>
+        )}
         <img
           className="h-12 w-12 flex-none rounded-full bg-gray-50"
           src={"http://localhost:5000/" + track.picture}
@@ -71,7 +80,11 @@ const TrackItem: React.FC<TrackItemProps> = ({ track, active = false }) => {
             {track.artist}
           </p>
         </div>
-        {active && <div>02:42 / 03:22</div>}
+        {active?._id === track._id && (
+          <div>
+            {useConvertToTime(currentTime)} / {useConvertToTime(duration)}
+          </div>
+        )}
         <button className="sm:items-end" onClick={deleteTrackHandler}>
           <svg
             className="w-8 h-8 text-gray-800 dark:text-white dark:hover:text-sky-400 ease-in-out duration-300"

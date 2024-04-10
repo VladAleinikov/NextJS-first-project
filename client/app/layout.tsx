@@ -15,7 +15,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="antialiased text-slate-500 dark:text-slate-400 bg-white dark:bg-slate-900">
+      <body className="min-h-[100vh] antialiased text-slate-500 dark:text-slate-400 bg-white dark:bg-slate-900">
         <StoreProvider>
           <Navbar />
           {children}

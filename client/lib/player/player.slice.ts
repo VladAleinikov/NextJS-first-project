@@ -7,7 +7,7 @@ const initialState: IPlayer = {
   volume: 50,
   duration: 0,
   currentTime: 0,
-  pause: true,
+  pause: false,
 };
 
 export const playerSlice = createSlice({
