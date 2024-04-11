@@ -5,6 +5,11 @@ import { useAddTrackMutation } from "@/lib/tracks/tracks.api";
 import { useRouter } from "next/navigation";
 import React, { useRef, useState } from "react";
 
+const steps = [
+  "Данные трека",
+  "Загрузите превью",
+  "Загрузите трек"
+]
 const Create = () => {
   const router = useRouter();
   const [activeStep, setActiveStep] = useState<number>(0);
@@ -33,7 +38,7 @@ const Create = () => {
   };
   return (
     <div className="flex flex-col items-center gap-4 mt-8">
-      <StepWrapper activeStep={activeStep}></StepWrapper>
+      <StepWrapper steps={steps} activeStep={activeStep}></StepWrapper>
       {activeStep === 0 && (
         <div className="flex flex-col items-center gap-3">
           <div className="max-w-md min-w-[400px]">

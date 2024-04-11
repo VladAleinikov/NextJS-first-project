@@ -5,6 +5,7 @@ import { useCreateAlbumMutation } from "@/lib/albums/albums.api";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
+const steps = ["Заполните поля", "Загрузите превью"];
 const CreateAlbum = () => {
   const router = useRouter();
   const [activeStep, setActiveStep] = useState<number>(0);
@@ -33,7 +34,7 @@ const CreateAlbum = () => {
   };
   return (
     <div className="flex flex-col items-center gap-4 mt-8">
-      <StepWrapper activeStep={activeStep}></StepWrapper>
+      <StepWrapper steps={steps} activeStep={activeStep}></StepWrapper>
       {activeStep === 0 && (
         <div className="flex flex-col items-center gap-3">
           <div className="max-w-md min-w-[400px]">
