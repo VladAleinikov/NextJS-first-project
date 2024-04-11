@@ -133,7 +133,7 @@ const AlbumItem: React.FC<AlbumItemProps> = ({ album }) => {
         </div>
       </li>
       {showTracks && (
-        <li className="flex gap-x-4 w-full p-2 my-[-2em] rounded-lg ease-in-out duration-300 hover:ring-slate-300 dark:bg-slate-800 dark:highlight-white/5">
+        <li className="flex gap-x-4 w-full p-2 mt-[-2em] mb-2 rounded-lg ease-in-out duration-300 hover:ring-slate-300 dark:bg-slate-800 dark:highlight-white/5">
           {" "}
           {album.tracks.length ? (
             <TrackList tracks={album.tracks} />

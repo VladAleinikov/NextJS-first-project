@@ -29,12 +29,31 @@ const Album = ({ params }: { params: { id: string } }) => {
     setDropdown(debounced.length >= 3 && tracks?.length! > 0);
   }, [debounced, tracks]);
   return (
-    <div>
+    <div className="flex flex-col items-center gap-4 mt-8">
+      {!isLoading ? (
+        <div className="flex flex-col mb-5 items-start gap-3">
+          <img
+            className="h-[400px] w-[400px] "
+            src={"http://localhost:5000/" + album?.picture}
+            alt="preview"
+          />
+          <div>
+            <h1>
+              <b>Название альбома</b> - {album?.name}
+            </h1>
+            <h1>
+              <b>Описание</b> - {album?.description}
+            </h1>
+          </div>
+        </div>
+      ) : (
+        "Загрузка"
+      )}
       <div className="relative w-[560px]">
         <input
           type="text"
           className="border py-2 px-4 w-full h-[42px] mb-2"
-          placeholder="Search for GitHub username..."
+          placeholder="Добавить трек в альбом"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />

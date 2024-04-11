@@ -47,7 +47,7 @@ const Track = ({ params }: { params: { id: string } }) => {
               <b>Исполнитель</b> - {track.artist}
             </h1>
             <h1>
-              <b>Прослушиваний</b> - {track.listens || 0}
+              <b>Прослушиваний</b> - {track.listent}
             </h1>
           </div>
           <div>

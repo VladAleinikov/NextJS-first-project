@@ -24,7 +24,7 @@ export const tracksApi = createApi({
       query: (formData) => ({
         url: "/",
         method: "post",
-        body: formData
+        body: formData,
       }),
       invalidatesTags: ["Tracks"],
     }),
@@ -43,6 +43,12 @@ export const tracksApi = createApi({
         invalidatesTags: ["Track"],
       }),
     }),
+    addListen: builder.query<ITrack, string>({
+      query: (id) => ({
+        url: "/listen/" + id,
+        method: "put"
+      }),
+    }),
   }),
 });
 
@@ -53,4 +59,5 @@ export const {
   useFetchTrackQuery,
   useAddCommentMutation,
   useDeleteTrackMutation,
+  useLazyAddListenQuery,
 } = tracksApi;

@@ -3,6 +3,7 @@ import { ITrack } from "@/types/track";
 import React, { useEffect } from "react";
 import TrackProgress from "./TrackProgress";
 import { useActions, useAppSelector } from "@/lib/hooks";
+import { useLazyAddListenQuery } from "@/lib/tracks/tracks.api";
 
 let audio: HTMLAudioElement;
 
@@ -10,6 +11,7 @@ const Player = () => {
   const { active, pause, volume, duration, currentTime } = useAppSelector(
     (state) => state.player
   );
+  const [addListen, { }] = useLazyAddListenQuery();
   const {
     playTrack,
     pauseTrack,
@@ -26,6 +28,11 @@ const Player = () => {
       audio.pause();
     }
   };
+  if (duration === currentTime && duration !== 0 && active) {
+    setCurrentTime(0);
+    play();
+    addListen(active?._id);
+  }
   const changeVolume = (e: React.ChangeEvent<HTMLInputElement>) => {
     audio.volume = Number(e.target.value) / 100;
     setVolume(Number(e.target.value));
