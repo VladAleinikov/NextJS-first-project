@@ -26,7 +26,7 @@ export class AlbumService {
     searchQuery = '',
     count = 10,
     page = 0,
-    albumIds: string[] = [],
+    albumIds: string[] | string = [],
   ): Promise<Album[]> {
     if (!albumIds.length) {
       const albums = await this.albumModel
@@ -40,7 +40,12 @@ export class AlbumService {
     } else {
       const albums = await this.albumModel
         .find({
-          _id: { $in: albumIds.map((id) => new mongoose.Types.ObjectId(id)) },
+          _id: {
+            $in:
+              typeof albumIds === 'string'
+                ? [new mongoose.Types.ObjectId(albumIds)]
+                : albumIds.map((id) => new mongoose.Types.ObjectId(id)),
+          },
           name: { $regex: new RegExp(searchQuery, 'i') },
         })
         .skip(page * count)
